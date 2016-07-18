@@ -17,7 +17,7 @@ Size of index: 313656 bytes
 
 If we use a larger contact map (5K resolution contact map of chromosome X) the 
 performance degrades significantly. But that's ok, because the implementation
-here is but a silly toy example. Other solutions will hopefully do better.
+here is but a naïve toy example. Other solutions will hopefully do better.
 
 ```
 Time performing range queries: 2829.92 seconds (per query): 28.30 seconds
