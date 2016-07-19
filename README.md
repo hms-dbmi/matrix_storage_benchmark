@@ -5,10 +5,10 @@ Test how well each contact matrix storage format performs.
 Input data format:
 
 ```
-chr1 pos1 chr2 pos2 count```
+chr1 pos1 chr2 pos2 count
 ```
 
-** Data Example: **
+**Data Example:**
 
 ```
 chr22   16050000        chr22   16055000        9.0
@@ -18,7 +18,7 @@ chr22   16065000        chr22   16070000        1.0
 chr22   16215000        chr22   16215000        1.0
 ```
 
-** Usage Example: **
+**Usage Example:**
 
 ```
 python scripts/matrix_storage.py test/data/test.gz
