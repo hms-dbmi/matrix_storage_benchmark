@@ -10,6 +10,8 @@ chr1 pos1 chr2 pos2 count
 
 **Data Example:**
 
+An example of the data to be taken as input (`test/data/test.gz`):
+
 ```
 chr22   16050000        chr22   16055000        9.0
 chr22   16055000        chr22   16060000        1.0
@@ -19,6 +21,8 @@ chr22   16215000        chr22   16215000        1.0
 ```
 
 **Usage Example:**
+
+The included script performs some rudimentary benchmarks for this dataset.
 
 ```
 python scripts/matrix_storage.py test/data/test.gz
