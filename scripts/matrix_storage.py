@@ -1,9 +1,11 @@
+import gzip
 import numpy as np
 import os.path as op
 import random
 import sys
 import time
 import argparse
+import negspy.coordinates as nc
 
 def main():
     parser = argparse.ArgumentParser(description="""
@@ -24,9 +26,22 @@ def main():
     args = parser.parse_args()
 
     t1 = time.time()
-    array = np.loadtxt(args.matrix_tsv[0])
+    array = []
 
-    print "Time loading structure: {:.2f} seconds".format(time.time() - t1)
+    with gzip.open(args.matrix_tsv[0], 'r') as f:
+        for line in f:
+            # convert each contact to global genomic coordinates by adding the
+            # chromosome name to its offset from the start of the genome
+            parts = line.split()
+            coord1 = nc.chr_pos_to_genome_pos(parts[0], int(parts[1]), 'hg19')
+            coord2 = nc.chr_pos_to_genome_pos(parts[2], int(parts[3]), 'hg19')
+            count = float(parts[4])
+            array += [[coord1, coord2, count]]
+
+    array = np.array(array)
+    print "Time creating index: {:.2f} seconds".format(time.time() - t1)
+
+    # the bounds of the contact coordinates
     min_x = min(array[:,0])
     min_y = min(array[:,1])
 
@@ -108,7 +123,15 @@ def main():
 
     print "Size of index: {} bytes".format(op.getsize(args.matrix_tsv[0]))
 
+    with gzip.open('/tmp/tmp.tsv', 'w') as f:
+        for a in array:
+            chr_pos1 = nc.genome_pos_to_chr_pos(a[0])
+            chr_pos2 = nc.genome_pos_to_chr_pos(a[1])
 
+            f.write("{}\t{}\t{}\t{}\t{:.1f}".format(chr_pos1[0], chr_pos1[1], chr_pos2[0], chr_pos2[1], a[2]))
+
+    print "Time outputting the index: {:.2f}".format(time.time() - t3)
+    print "Size of index: {} bytes".format(op.getsize(args.matrix_tsv[0]))
 
 if __name__ == '__main__':
     main()

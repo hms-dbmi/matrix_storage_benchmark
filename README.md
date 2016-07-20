@@ -32,7 +32,7 @@ Time slicing across the diagonal: 0.25 seconds (per query): 0.00 seconds
 Size of index: 28937 bytes
 ```
 
-If we use a larger contact map (5K resolution contact map of chromosome X) the 
+If we use a larger contact map (5K resolution contact map of chromosomes 21 and 22) the 
 performance degrades significantly. But that's ok, because the implementation
 here is but a naïve toy example. Other solutions will hopefully do better.
 
